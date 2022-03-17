@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1.txt-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
@@ -20,11 +20,27 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
+test {
+    filter {
+        includeTestsMatching  "GradleTestsApplicationTests.helloWorldSaysSomething"
+    }
+    testLogging.showStandardStreams = true
+}
+
+task copyFiles(type: CopyFilesTask) {
+
+}
+
+tasks.named('test', Test) {
     useJUnitPlatform()
+}
+
+tasks.register('hello') {
+    doLast {
+        println 'testing print'
+    }
 }
