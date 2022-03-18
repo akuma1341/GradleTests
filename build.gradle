@@ -32,7 +32,6 @@ test {
 }
 
 task copyFiles(type: CopyFilesTask) {
-
 }
 
 task cloneGit(type: CloneGitTask) {
