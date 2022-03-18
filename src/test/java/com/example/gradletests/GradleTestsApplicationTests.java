@@ -1,7 +1,6 @@
 package com.example.gradletests;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,24 +8,19 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class GradleTestsApplicationTests {
 
-    @Autowired
-    private HelloWorld helloWorld;
-
     @Test
-    void helloWorldSaysHello() {
-        String hello = helloWorld.saySomething();
+    void intSumEquals() {
+        int a = 2 + 2;
 
-        assertNotNull(hello);
-        assertEquals("Hello", hello);
+        assertEquals(4, a);
     }
 
     @Test
-    void helloWorldSaysSomething() {
+    void stringsAreNotEqual() {
         String value = "something";
-        String something = helloWorld.saySomething(value);
-        System.out.println(something);
+        String value2 = "somethingElse";
 
-        assertEquals(value, something);
+        assertNotEquals(value, value2);
     }
 
 }

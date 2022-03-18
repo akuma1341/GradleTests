@@ -8,17 +8,6 @@ import org.springframework.context.ApplicationContext;
 public class GradleTestsApplication {
 
     public static void main(String[] args) {
-        ApplicationContext context =SpringApplication.run(GradleTestsApplication.class, args);
-
-        HelloWorld helloWorld = context.getBean(HelloWorld.class);
-
-        if (args.length > 0) {
-            String value = args[0];
-            System.out.println(helloWorld.saySomething(value));
-        } else {
-            System.out.println(helloWorld.saySomething());
-        }
-
+        SpringApplication.run(GradleTestsApplication.class, args);
     }
-
 }

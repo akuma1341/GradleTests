@@ -6,28 +6,34 @@ import java.io.File;
 import java.io.IOException;
 
 public class CloneGitTask extends DefaultTask {
-    private String url;
+    private String uri;
+    private String directory;
 
     @Input
-    public String getUrl() {
-        return url;
+    public String getUri() {
+        return uri;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    @Input
+    public String getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(String directory) {
+        this.directory = directory;
     }
 
     @TaskAction
     public void cloneGit() {
-        String command = "git clone " + url;
-
-        String currentDirectory = System.getProperty("user.dir");
-        String gitCloneDirectory = currentDirectory + "/gitClone";
-
-        File directory = new File(gitCloneDirectory);
+        String command = "git clone " + uri;
+        File cloneDirectory = new File(directory);
 
         try {
-            Runtime.getRuntime().exec(command, new String[0], directory);
+            Runtime.getRuntime().exec(command, new String[0], cloneDirectory);
         } catch (IOException e) {
             System.out.println("Clone failed: " + e.getMessage());
         }

@@ -20,30 +20,55 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
-
+    implementation 'org.springframework:spring-web:5.3.16'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
     filter {
-        includeTestsMatching  "GradleTestsApplicationTests.helloWorldSaysSomething"
+        includeTestsMatching "GradleTestsApplicationTests.stringsAreNotEqual"
     }
     testLogging.showStandardStreams = true
 }
 
 task copyFiles(type: CopyFilesTask) {
+    sourceDirectory = from
+    destinationDirectory = to
 }
 
 task cloneGit(type: CloneGitTask) {
-    url = gitURL
+    uri = gitURI
+    directory = gitCloneDirectory
+}
+
+task cloneGit2 {
+    doLast {
+        if (project.hasProperty("directoryProp") && project.hasProperty("uriProp")) {
+            exec {
+                workingDir directoryProp
+                executable 'git'
+                args 'clone', uriProp
+            }
+        } else {
+            throw new InvalidUserDataException("Cannot perform without properties")
+        }
+    }
+}
+
+task cloneGit3(type: Exec) {
+    workingDir "gitClone"
+    commandLine 'git', 'clone', 'https://github.com/akuma1341/calculator.git'
+}
+
+tasks.register('copy', Copy) {
+    if (project.hasProperty("sourceProp") && project.hasProperty("destinationProp")) {
+        from(sourceProp)
+        into(destinationProp)
+    } else {
+        throw new InvalidUserDataException("Cannot perform without properties")
+    }
 }
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-tasks.register('hello') {
-    doLast {
-        println 'testing print'
-    }
 }
