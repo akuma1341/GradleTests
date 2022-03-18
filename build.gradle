@@ -35,7 +35,11 @@ task copyFiles(type: CopyFilesTask) {
 
 }
 
-tasks.named('test', Test) {
+task cloneGit(type: CloneGitTask) {
+    url = gitURL
+}
+
+tasks.named('test') {
     useJUnitPlatform()
 }
 
